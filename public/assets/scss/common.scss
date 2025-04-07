@@ -1,0 +1,51 @@
+body {
+    font-family: "Cormorant Garamond", serif;
+}
+
+.logo {
+    font-family: "Fredericka the Great", serif;
+    font-weight: 400;
+}
+
+// Header section css
+.header-section {
+    .menu-bar {
+        a {
+           &.active {
+            font-weight: 600;
+            color: #000;
+           } 
+        }
+    }
+}
+
+// Accordion CSS
+
+.mat-accordion {
+    .mat-expansion-panel {
+        box-shadow: unset !important;
+        border: 1px solid #000;
+        .mat-expansion-indicator {
+            &::after, &::before {
+                border-color: #000 !important;
+            }
+        }
+        .mat-expansion-panel-header {
+            &.mat-expanded {
+                background-color: #000;
+                border-radius: unset !important;
+                .mat-expansion-panel-header-title {
+                    color: #fff;
+                }
+                .mat-expansion-indicator {
+                    &::after, &::before {
+                        border-color: #fff !important;
+                    }
+                }
+            }
+        }
+        .mat-expansion-panel-body {
+            padding: 16px 24px !important;
+        }
+    }
+}
