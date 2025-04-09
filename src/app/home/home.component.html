@@ -71,48 +71,15 @@
     <h2 class="text-center text-2xl md:text-4xl lg:text-5xl font-bold mb-5 md:mb-10">Resume Format</h2>
     <div class="resume-background-design m-3 md:m-0">
         <div class="grid md:grid-cols-2 lg:grid-cols-4 xl:grid-cols-6 gap-3">
-            <div class="bg-design cursor-pointer relative group rounded-md overflow-hidden">
-                <div class="absolute bg-[rgba(0,0,0,0.5)] top-0 left-0 z-10 h-full w-full opacity-0 group-hover:opacity-100 transition-all duration-500"></div>
-                <img src="assets/images/layouts/1.jpg" alt="images" />
-                <button class="bg-white text-black text-lg py-2 px-12 rounded-md absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 opacity-0 group-hover:opacity-100 transition-all duration-500 z-10">
-                    Select
-                </button>
-            </div>
-            <div class="bg-design cursor-pointer relative group rounded-md overflow-hidden">
-                <div class="absolute bg-[rgba(0,0,0,0.5)] top-0 left-0 z-10 h-full w-full opacity-0 group-hover:opacity-100 transition-all duration-500"></div>
-                <img src="assets/images/layouts/2.jpg" alt="images" />
-                <button class="bg-white text-black text-lg py-2 px-12 rounded-md absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 opacity-0 group-hover:opacity-100 transition-all duration-500 z-10">
-                    Select
-                </button>
-            </div>
-            <div class="bg-design cursor-pointer relative group rounded-md overflow-hidden">
-                <div class="absolute bg-[rgba(0,0,0,0.5)] top-0 left-0 z-10 h-full w-full opacity-0 group-hover:opacity-100 transition-all duration-500"></div>
-                <img src="assets/images/layouts/3.jpg" alt="images" />
-                <button class="bg-white text-black text-lg py-2 px-12 rounded-md absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 opacity-0 group-hover:opacity-100 transition-all duration-500 z-10">
-                    Select
-                </button>
-            </div>
-            <div class="bg-design cursor-pointer relative group rounded-md overflow-hidden">
-                <div class="absolute bg-[rgba(0,0,0,0.5)] top-0 left-0 z-10 h-full w-full opacity-0 group-hover:opacity-100 transition-all duration-500"></div>
-                <img src="assets/images/layouts/4.jpg" alt="images" />
-                <button class="bg-white text-black text-lg py-2 px-12 rounded-md absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 opacity-0 group-hover:opacity-100 transition-all duration-500 z-10">
-                    Select
-                </button>
-            </div>
-            <div class="bg-design cursor-pointer relative group rounded-md overflow-hidden">
-                <div class="absolute bg-[rgba(0,0,0,0.5)] top-0 left-0 z-10 h-full w-full opacity-0 group-hover:opacity-100 transition-all duration-500"></div>
-                <img src="assets/images/layouts/5.jpg" alt="images" />
-                <button class="bg-white text-black text-lg py-2 px-12 rounded-md absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 opacity-0 group-hover:opacity-100 transition-all duration-500 z-10">
-                    Select
-                </button>
-            </div>
-            <div class="bg-design cursor-pointer relative group rounded-md overflow-hidden">
-                <div class="absolute bg-[rgba(0,0,0,0.5)] top-0 left-0 z-10 h-full w-full opacity-0 group-hover:opacity-100 transition-all duration-500"></div>
-                <img src="assets/images/layouts/6.jpg" alt="images" />
-                <button class="bg-white text-black text-lg py-2 px-12 rounded-md absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 opacity-0 group-hover:opacity-100 transition-all duration-500 z-10">
-                    Select
-                </button>
-            </div>
+            @for(design of designs; track design) {
+                <div class="bg-design cursor-pointer relative group rounded-md overflow-hidden">
+                    <div class="absolute bg-[rgba(0,0,0,0.5)] top-0 left-0 z-10 h-full w-full opacity-0 group-hover:opacity-100 transition-all duration-500"></div>
+                    <img [src]="design" alt="images" />
+                    <button class="bg-white text-black text-lg py-2 px-12 rounded-md absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 opacity-0 group-hover:opacity-100 transition-all duration-500 z-10" (click)="selectDesign(design)">
+                        Select
+                    </button>
+                </div>
+            }
         </div>
     </div>
 </div>
@@ -121,275 +88,299 @@
 <!-- resume form section -->
 <div class="container mx-auto md:my-10 my-5">
     <div class="resume-form">
-        <div class="grid grid-cols-2 gap-3">
-            <div class="w-full form-section">
-                <form>
-                    <mat-accordion class="space-y-3">
-                        <mat-expansion-panel>
-                            <mat-expansion-panel-header>
-                                <mat-panel-title class="font-bold">
-                                    Personal Details
-                                </mat-panel-title>
-                            </mat-expansion-panel-header>
-                            <div class="space-y-3">
-                                <div class="flex items-center justify-between gap-2">
-                                    <div class="label w-1/5 font-semibold">
-                                        Name
-                                    </div>
-                                    <mat-form-field class="w-4/5" appearance="outline" [subscriptSizing]="'dynamic'">
-                                        <input matInput />
-                                    </mat-form-field>
+        <h2 class="text-center text-2xl md:text-4xl lg:text-5xl font-bold mb-2">FAQs</h2>
+        <h6 class="text-center text-2xl mb-5 md:mb-10">Your Questions, Our Answers: Unveiling the Resume Creation Journey</h6>
+        <div class="grid grid-cols-5 gap-3">
+            <form [formGroup]="bioDataForm" class="form-section col-span-3">
+                <mat-accordion class="space-y-3">
+                    <mat-expansion-panel expanded>
+                        <mat-expansion-panel-header>
+                            <mat-panel-title class="font-bold">
+                                Personal Details
+                            </mat-panel-title>
+                        </mat-expansion-panel-header>
+                        <div class="space-y-3">
+                            <div class="flex items-center justify-between gap-2">
+                                <div class="label w-1/5 font-semibold">
+                                    Full Name
                                 </div>
-                                <div class="flex items-center justify-between gap-2">
-                                    <div class="label w-1/5 font-semibold">
-                                        Gender
-                                    </div>
-                                    <mat-form-field class="w-4/5" appearance="outline" [subscriptSizing]="'dynamic'">
-                                        <input matInput />
-                                    </mat-form-field>
-                                </div>
-                                <div class="flex items-center justify-between gap-2">
-                                    <div class="label w-1/5 font-semibold">
-                                        Date Of Birth
-                                    </div>
-                                    <mat-form-field class="w-4/5" appearance="outline" [subscriptSizing]="'dynamic'">
-                                        <input matInput />
-                                    </mat-form-field>
-                                </div>
-                                <div class="flex items-center justify-between gap-2">
-                                    <div class="label w-1/5 font-semibold">
-                                        Place Of Birth
-                                    </div>
-                                    <mat-form-field class="w-4/5" appearance="outline" [subscriptSizing]="'dynamic'">
-                                        <input matInput />
-                                    </mat-form-field>
-                                </div>
-                                <div class="flex items-center justify-between gap-2">
-                                    <div class="label w-1/5 font-semibold">
-                                        Time Of Birth
-                                    </div>
-                                    <mat-form-field class="w-4/5" appearance="outline" [subscriptSizing]="'dynamic'">
-                                        <input matInput />
-                                    </mat-form-field>
-                                </div>
-                                <div class="flex items-center justify-between gap-2">
-                                    <div class="label w-1/5 font-semibold">
-                                        Height
-                                    </div>
-                                    <mat-form-field class="w-4/5" appearance="outline" [subscriptSizing]="'dynamic'">
-                                        <input matInput />
-                                    </mat-form-field>
-                                </div>
-                                <div class="flex items-center justify-between gap-2">
-                                    <div class="label w-1/5 font-semibold">
-                                        Marital Status
-                                    </div>
-                                    <mat-form-field class="w-4/5" appearance="outline" [subscriptSizing]="'dynamic'">
-                                        <input matInput />
-                                    </mat-form-field>
-                                </div>
-                                <div class="flex items-center justify-between gap-2">
-                                    <div class="label w-1/5 font-semibold">
-                                        Marital Status
-                                    </div>
-                                    <mat-form-field class="w-4/5" appearance="outline" [subscriptSizing]="'dynamic'">
-                                        <input matInput />
-                                    </mat-form-field>
-                                </div>
-                                <div class="flex items-center justify-between gap-2">
-                                    <div class="label w-1/5 font-semibold">
-                                        Religion
-                                    </div>
-                                    <mat-form-field class="w-4/5" appearance="outline" [subscriptSizing]="'dynamic'">
-                                        <input matInput />
-                                    </mat-form-field>
-                                </div>
-                                <div class="flex items-center justify-between gap-2">
-                                    <div class="label w-1/5 font-semibold">
-                                        Mother Tongue
-                                    </div>
-                                    <mat-form-field class="w-4/5" appearance="outline" [subscriptSizing]="'dynamic'">
-                                        <input matInput />
-                                    </mat-form-field>
-                                </div>
-                                <div class="flex items-center justify-between gap-2">
-                                    <div class="label w-1/5 font-semibold">
-                                        Caste
-                                    </div>
-                                    <mat-form-field class="w-4/5" appearance="outline" [subscriptSizing]="'dynamic'">
-                                        <input matInput />
-                                    </mat-form-field>
-                                </div>
-                                <div class="flex items-center justify-between gap-2">
-                                    <div class="label w-1/5 font-semibold">
-                                        Sub Caste
-                                    </div>
-                                    <mat-form-field class="w-4/5" appearance="outline" [subscriptSizing]="'dynamic'">
-                                        <input matInput />
-                                    </mat-form-field>
-                                </div>
-                                <div class="flex items-center justify-between gap-2">
-                                    <div class="label w-1/5 font-semibold">
-                                        Highest Education
-                                    </div>
-                                    <mat-form-field class="w-4/5" appearance="outline" [subscriptSizing]="'dynamic'">
-                                        <input matInput />
-                                    </mat-form-field>
-                                </div>
-                                <div class="flex items-center justify-between gap-2">
-                                    <div class="label w-1/5 font-semibold">
-                                        Job/Occupation
-                                    </div>
-                                    <mat-form-field class="w-4/5" appearance="outline" [subscriptSizing]="'dynamic'">
-                                        <input matInput />
-                                    </mat-form-field>
-                                </div>
-                                <div class="flex items-center justify-between gap-2">
-                                    <div class="label w-1/5 font-semibold">
-                                        Organization Name
-                                    </div>
-                                    <mat-form-field class="w-4/5" appearance="outline" [subscriptSizing]="'dynamic'">
-                                        <input matInput />
-                                    </mat-form-field>
-                                </div>
-                                <div class="flex items-center justify-between gap-2">
-                                    <div class="label w-1/5 font-semibold">
-                                        Annual Income
-                                    </div>
-                                    <mat-form-field class="w-4/5" appearance="outline" [subscriptSizing]="'dynamic'">
-                                        <input matInput />
-                                    </mat-form-field>
-                                </div>
+                                <mat-form-field class="w-4/5" appearance="outline" [subscriptSizing]="'dynamic'">
+                                    <input matInput formControlName="fullName" />
+                                </mat-form-field>
                             </div>
-                        </mat-expansion-panel>
+                            <div class="flex items-center justify-between gap-2">
+                                <div class="label w-1/5 font-semibold">
+                                    Gender
+                                </div>
+                                <mat-form-field class="w-4/5" appearance="outline" [subscriptSizing]="'dynamic'">
+                                    <mat-select formControlName="gender">
+                                        <mat-option value="Male">Male</mat-option>
+                                        <mat-option value="Female">Female</mat-option>
+                                        <mat-option value="Other">Other</mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+                            </div>
+                            <div class="flex items-center justify-between gap-2">
+                                <div class="label w-1/5 font-semibold">
+                                    Date Of Birth
+                                </div>
+                                <mat-form-field class="w-4/5" appearance="outline" [subscriptSizing]="'dynamic'">
+                                    <input matInput [matDatepicker]="picker" formControlName="dob" />
+                                    <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+                                    <mat-datepicker #picker></mat-datepicker>
+                                </mat-form-field>
+                            </div>
+                            <div class="flex items-center justify-between gap-2">
+                                <div class="label w-1/5 font-semibold">
+                                    Place Of Birth
+                                </div>
+                                <mat-form-field class="w-4/5" appearance="outline" [subscriptSizing]="'dynamic'">
+                                    <input matInput formControlName="placeOfBirth" />
+                                </mat-form-field>
+                            </div>
+                            <div class="flex items-center justify-between gap-2">
+                                <div class="label w-1/5 font-semibold">
+                                    Marital Status
+                                </div>
+                                <mat-form-field class="w-4/5" appearance="outline" [subscriptSizing]="'dynamic'">
+                                    <input matInput formControlName="maritalStatus" />
+                                </mat-form-field>
+                            </div>
+                            <div class="flex items-center justify-between gap-2">
+                                <div class="label w-1/5 font-semibold">
+                                    Religion
+                                </div>
+                                <mat-form-field class="w-4/5" appearance="outline" [subscriptSizing]="'dynamic'">
+                                    <input matInput formControlName="religion" />
+                                </mat-form-field>
+                            </div>
+                            <div class="flex items-center justify-between gap-2">
+                                <div class="label w-1/5 font-semibold">
+                                    Mother Tongue
+                                </div>
+                                <mat-form-field class="w-4/5" appearance="outline" [subscriptSizing]="'dynamic'">
+                                    <input matInput formControlName="motherTongue" />
+                                </mat-form-field>
+                            </div>
+                            <div class="flex items-center justify-between gap-2">
+                                <div class="label w-1/5 font-semibold">
+                                    Caste
+                                </div>
+                                <mat-form-field class="w-4/5" appearance="outline" [subscriptSizing]="'dynamic'">
+                                    <input matInput formControlName="caste" />
+                                </mat-form-field>
+                            </div>
+                            <div class="flex items-center justify-between gap-2">
+                                <div class="label w-1/5 font-semibold">
+                                    Sub Caste
+                                </div>
+                                <mat-form-field class="w-4/5" appearance="outline" [subscriptSizing]="'dynamic'">
+                                    <input matInput formControlName="subCaste" />
+                                </mat-form-field>
+                            </div>
+                            <div class="flex items-center justify-between gap-2">
+                                <div class="label w-1/5 font-semibold">
+                                    Highest Education
+                                </div>
+                                <mat-form-field class="w-4/5" appearance="outline" [subscriptSizing]="'dynamic'">
+                                    <input matInput formControlName="education" />
+                                </mat-form-field>
+                            </div>
+                            <div class="flex items-center justify-between gap-2">
+                                <div class="label w-1/5 font-semibold">
+                                    Job/Occupation
+                                </div>
+                                <mat-form-field class="w-4/5" appearance="outline" [subscriptSizing]="'dynamic'">
+                                    <input matInput formControlName="occupation" />
+                                </mat-form-field>
+                            </div>
+                            <div class="flex items-center justify-between gap-2">
+                                <div class="label w-1/5 font-semibold">
+                                    Organization Name
+                                </div>
+                                <mat-form-field class="w-4/5" appearance="outline" [subscriptSizing]="'dynamic'">
+                                    <input matInput formControlName="organizationName" />
+                                </mat-form-field>
+                            </div>
+                            <div class="flex items-center justify-between gap-2">
+                                <div class="label w-1/5 font-semibold">
+                                    Annual Income
+                                </div>
+                                <mat-form-field class="w-4/5" appearance="outline" [subscriptSizing]="'dynamic'">
+                                    <input matInput type="number" formControlName="annualIncome" />
+                                </mat-form-field>
+                            </div>
+                        </div>
+                    </mat-expansion-panel>
 
-                        <mat-expansion-panel>
-                            <mat-expansion-panel-header>
-                                <mat-panel-title class="font-bold">
-                                    Family Details
-                                </mat-panel-title>
-                            </mat-expansion-panel-header>
-                            <div class="space-y-3">
-                                <div class="flex items-center justify-between gap-2">
-                                    <div class="label w-1/5 font-semibold">
-                                        Father's Name
-                                    </div>
-                                    <mat-form-field class="w-4/5" appearance="outline" [subscriptSizing]="'dynamic'">
-                                        <input matInput />
-                                    </mat-form-field>
+                    <mat-expansion-panel>
+                        <mat-expansion-panel-header>
+                            <mat-panel-title class="font-bold">
+                                Family Details
+                            </mat-panel-title>
+                        </mat-expansion-panel-header>
+                        <div class="space-y-3">
+                            <div class="flex items-center justify-between gap-2">
+                                <div class="label w-1/5 font-semibold">
+                                    Father's Name
                                 </div>
-                                <div class="flex items-center justify-between gap-2">
-                                    <div class="label w-1/5 font-semibold">
-                                        Father's Occupation
-                                    </div>
-                                    <mat-form-field class="w-4/5" appearance="outline" [subscriptSizing]="'dynamic'">
-                                        <input matInput />
-                                    </mat-form-field>
-                                </div>
-                                <div class="flex items-center justify-between gap-2">
-                                    <div class="label w-1/5 font-semibold">
-                                        Mother's Name
-                                    </div>
-                                    <mat-form-field class="w-4/5" appearance="outline" [subscriptSizing]="'dynamic'">
-                                        <input matInput />
-                                    </mat-form-field>
-                                </div>
-                                <div class="flex items-center justify-between gap-2">
-                                    <div class="label w-1/5 font-semibold">
-                                        Mother's Occupation
-                                    </div>
-                                    <mat-form-field class="w-4/5" appearance="outline" [subscriptSizing]="'dynamic'">
-                                        <input matInput />
-                                    </mat-form-field>
-                                </div>
-                                <div class="flex items-center justify-between gap-2">
-                                    <div class="label w-1/5 font-semibold">
-                                        Total Brothers
-                                    </div>
-                                    <mat-form-field class="w-4/5" appearance="outline" [subscriptSizing]="'dynamic'">
-                                        <input matInput />
-                                    </mat-form-field>
-                                </div>
-                                <div class="flex items-center justify-between gap-2">
-                                    <div class="label w-1/5 font-semibold">
-                                        Total Sisters
-                                    </div>
-                                    <mat-form-field class="w-4/5" appearance="outline" [subscriptSizing]="'dynamic'">
-                                        <input matInput />
-                                    </mat-form-field>
-                                </div>
-                                <div class="flex items-center justify-between gap-2">
-                                    <div class="label w-1/5 font-semibold">
-                                        Married Brothers
-                                    </div>
-                                    <mat-form-field class="w-4/5" appearance="outline" [subscriptSizing]="'dynamic'">
-                                        <input matInput />
-                                    </mat-form-field>
-                                </div>
-                                <div class="flex items-center justify-between gap-2">
-                                    <div class="label w-1/5 font-semibold">
-                                        Married Sisters
-                                    </div>
-                                    <mat-form-field class="w-4/5" appearance="outline" [subscriptSizing]="'dynamic'">
-                                        <input matInput />
-                                    </mat-form-field>
-                                </div>
+                                <mat-form-field class="w-4/5" appearance="outline" [subscriptSizing]="'dynamic'">
+                                    <input matInput formControlName="fatherName" />
+                                </mat-form-field>
                             </div>
-                        </mat-expansion-panel>
+                            <div class="flex items-center justify-between gap-2">
+                                <div class="label w-1/5 font-semibold">
+                                    Father's Occupation
+                                </div>
+                                <mat-form-field class="w-4/5" appearance="outline" [subscriptSizing]="'dynamic'">
+                                    <input matInput formControlName="fatherOccupation" />
+                                </mat-form-field>
+                            </div>
+                            <div class="flex items-center justify-between gap-2">
+                                <div class="label w-1/5 font-semibold">
+                                    Mother's Name
+                                </div>
+                                <mat-form-field class="w-4/5" appearance="outline" [subscriptSizing]="'dynamic'">
+                                    <input matInput formControlName="motherName" />
+                                </mat-form-field>
+                            </div>
+                            <div class="flex items-center justify-between gap-2">
+                                <div class="label w-1/5 font-semibold">
+                                    Mother's Occupation
+                                </div>
+                                <mat-form-field class="w-4/5" appearance="outline" [subscriptSizing]="'dynamic'">
+                                    <input matInput formControlName="motherOccupation" />
+                                </mat-form-field>
+                            </div>
+                            <div class="flex items-center justify-between gap-2">
+                                <div class="label w-1/5 font-semibold">
+                                    Total Brothers
+                                </div>
+                                <mat-form-field class="w-4/5" appearance="outline" [subscriptSizing]="'dynamic'">
+                                    <input matInput type="number" formControlName="totalBrother" />
+                                </mat-form-field>
+                            </div>
+                            <div class="flex items-center justify-between gap-2">
+                                <div class="label w-1/5 font-semibold">
+                                    Total Sisters
+                                </div>
+                                <mat-form-field class="w-4/5" appearance="outline" [subscriptSizing]="'dynamic'">
+                                    <input matInput type="number" formControlName="totalSister" />
+                                </mat-form-field>
+                            </div>
+                            <div class="flex items-center justify-between gap-2">
+                                <div class="label w-1/5 font-semibold">
+                                    Married Brothers
+                                </div>
+                                <mat-form-field class="w-4/5" appearance="outline" [subscriptSizing]="'dynamic'">
+                                    <input matInput type="number" formControlName="marriedBrother" />
+                                </mat-form-field>
+                            </div>
+                            <div class="flex items-center justify-between gap-2">
+                                <div class="label w-1/5 font-semibold">
+                                    Married Sisters
+                                </div>
+                                <mat-form-field class="w-4/5" appearance="outline" [subscriptSizing]="'dynamic'">
+                                    <input matInput type="number" formControlName="marriedSister" />
+                                </mat-form-field>
+                            </div>
+                        </div>
+                    </mat-expansion-panel>
 
-                        <mat-expansion-panel>
-                            <mat-expansion-panel-header>
-                                <mat-panel-title class="font-bold">
-                                    Contact Details
-                                </mat-panel-title>
-                            </mat-expansion-panel-header>
-                            <div class="space-y-3">
-                                <div class="flex items-center justify-between gap-2">
-                                    <div class="label w-1/5 font-semibold">
-                                        Contact No
-                                    </div>
-                                    <mat-form-field class="w-4/5" appearance="outline" [subscriptSizing]="'dynamic'">
-                                        <input matInput />
-                                    </mat-form-field>
+                    <mat-expansion-panel>
+                        <mat-expansion-panel-header>
+                            <mat-panel-title class="font-bold">
+                                Contact Details
+                            </mat-panel-title>
+                        </mat-expansion-panel-header>
+                        <div class="space-y-3">
+                            <div class="flex items-center justify-between gap-2">
+                                <div class="label w-1/5 font-semibold">
+                                    Contact No
                                 </div>
-                                <div class="flex items-center justify-between gap-2">
-                                    <div class="label w-1/5 font-semibold">
-                                        Father's Contact No
-                                    </div>
-                                    <mat-form-field class="w-4/5" appearance="outline" [subscriptSizing]="'dynamic'">
-                                        <input matInput />
-                                    </mat-form-field>
-                                </div>
-                                <div class="flex items-center justify-between gap-2">
-                                    <div class="label w-1/5 font-semibold">
-                                        Mother's Contact No
-                                    </div>
-                                    <mat-form-field class="w-4/5" appearance="outline" [subscriptSizing]="'dynamic'">
-                                        <input matInput />
-                                    </mat-form-field>
-                                </div>
-                                <div class="flex items-center justify-between gap-2">
-                                    <div class="label w-1/5 font-semibold">
-                                        Address
-                                    </div>
-                                    <mat-form-field class="w-4/5" appearance="outline" [subscriptSizing]="'dynamic'">
-                                        <input matInput />
-                                    </mat-form-field>
-                                </div>
-                                <div class="flex items-center justify-between gap-2">
-                                    <div class="label w-1/5 font-semibold">
-                                        Email ID
-                                    </div>
-                                    <mat-form-field class="w-4/5" appearance="outline" [subscriptSizing]="'dynamic'">
-                                        <input matInput />
-                                    </mat-form-field>
-                                </div>
+                                <mat-form-field class="w-4/5" appearance="outline" [subscriptSizing]="'dynamic'">
+                                    <input matInput type="number" formControlName="contactNo" />
+                                </mat-form-field>
                             </div>
-                        </mat-expansion-panel>
-                    </mat-accordion>
-                </form>
+                            <div class="flex items-center justify-between gap-2">
+                                <div class="label w-1/5 font-semibold">
+                                    Father's Contact No
+                                </div>
+                                <mat-form-field class="w-4/5" appearance="outline" [subscriptSizing]="'dynamic'">
+                                    <input matInput type="number" formControlName="fatherContactNo" />
+                                </mat-form-field>
+                            </div>
+                            <div class="flex items-center justify-between gap-2">
+                                <div class="label w-1/5 font-semibold">
+                                    Mother's Contact No
+                                </div>
+                                <mat-form-field class="w-4/5" appearance="outline" [subscriptSizing]="'dynamic'">
+                                    <input matInput type="number" formControlName="motherContactNo" />
+                                </mat-form-field>
+                            </div>
+                            <div class="flex items-center justify-between gap-2">
+                                <div class="label w-1/5 font-semibold">
+                                    Address
+                                </div>
+                                <mat-form-field class="w-4/5" appearance="outline" [subscriptSizing]="'dynamic'">
+                                    <textarea matInput formControlName="address"></textarea>
+                                </mat-form-field>
+                            </div>
+                            <div class="flex items-center justify-between gap-2">
+                                <div class="label w-1/5 font-semibold">
+                                    Email ID
+                                </div>
+                                <mat-form-field class="w-4/5" appearance="outline" [subscriptSizing]="'dynamic'">
+                                    <input matInput formControlName="email" />
+                                </mat-form-field>
+                            </div>
+                        </div>
+                    </mat-expansion-panel>
+
+                    <mat-expansion-panel>
+                        <mat-expansion-panel-header>
+                            <mat-panel-title class="font-bold">
+                                Upload Photo
+                            </mat-panel-title>
+                        </mat-expansion-panel-header>
+                        <div class="space-y-3">
+                            <div class="border border-1 border-gray-200 p-5 rounded-lg flex justify-center items-center">
+                                <label for="profile-photo" class="cursor-pointer bg-black text-white border border-black py-4 px-10 hover:text-black hover:bg-transparent transition-all duration-500 rounded-lg font-semibold">
+                                    Upload Image
+                                </label>
+                                <input type="file" id="profile-photo" (change)="onSelectFile($event)" class="hidden" accept=".jpg,.jpeg,.png,.gif,.bmp,.webp" />
+                            </div>
+                        </div>
+                    </mat-expansion-panel>
+                </mat-accordion>
+            </form>
+            <div class="w-full design-section col-span-2">
+                <!-- <div #previewSection class="relative">
+                    @if (selectedImage) {
+                        <img [src]="selectedImage" [alt]="selectedImage" class="rounded-md w-full" />
+                    } @else {
+                        <img src="assets/images/layouts/1.jpg" alt="" class="rounded-md w-full" />
+                    }
+                    <div class="grid grid-cols-2 w-full justify-between gap-2 text-sm absolute top-0 left-0 p-14">
+                       <div>
+                            @for (field of displayedFields; track field.label) {
+                            <div>
+                                <span class="font-bold text-xl">{{ field.label }} : </span> <span class="text-lg font-semibold">{{ field.value }}</span>
+                            </div>
+                            }
+                       </div>
+                        @if(url) {
+                            <img [src]="url" class="h-28 ms-auto" />
+                        }
+                    </div>
+                </div> -->
+                <app-preview-data [bioDataForm]="bioDataForm" [url]="url" [selectedImage]="selectedImage"></app-preview-data>
+                <div class="flex items-center justify-center gap-3 mt-3">
+                    <button (click)="previewResume()" class="cursor-pointer bg-black text-white border border-black py-2 px-10 hover:text-black hover:bg-transparent transition-all duration-500 rounded-lg font-semibold">
+                        Preview and Download
+                    </button>
+                </div>
             </div>
-            <div class="w-full design-section"></div>
         </div>
     </div>
 </div>
@@ -400,7 +391,6 @@
     <h2 class="text-center text-2xl md:text-4xl lg:text-5xl font-bold mb-2">FAQs</h2>
     <h6 class="text-center text-2xl mb-5 md:mb-10">Your Questions, Our Answers: Unveiling the Resume Creation Journey</h6>
     <div class="m-3 md:m-0 space-y-3">
-
         <mat-accordion class="space-y-3">
             <mat-expansion-panel>
                 <mat-expansion-panel-header>

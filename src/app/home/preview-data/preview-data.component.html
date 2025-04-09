@@ -1,0 +1,122 @@
+@if (showAction) {
+    <div class="dialog_header">
+        <h5 class="dialog_header-title">
+            <i class="fa-solid fa-eye"></i> Preview Data    
+        </h5>
+        <a class="dialog_header-icon" mat-dialog-close>
+            <i class="fa-solid fa-xmark"></i>
+        </a>
+    </div>
+}
+<div #previewSection class="relative dialog_content">
+    @if (selectedImage) {
+        <img [src]="selectedImage" [alt]="selectedImage" class="rounded-md w-full h-full" />
+    } @else {
+        <img src="assets/images/layouts/1.jpg" alt="" class="rounded-md w-full h-full" />
+    }
+    <!-- <div class="grid grid-cols-5 w-full justify-between gap-2 text-sm absolute top-0 left-0 p-10">
+        <div class="col-span-4">
+            @if (displayedPersonalDetails.length > 0) {
+                <div class="mb-3 font-semibold tracking-wide relative before:contents-['*'] before:absolute before:left-0 before:-bottom-[6px] before:h-1 before:w-10 before:bg-black after:contents-['*'] after:absolute after:left-0 after:-bottom-[4px] after:h-[1px] after:w-[95%] after:bg-[#333]">
+                    <h3 class="">Personal Details</h3>
+                </div>
+                @for (field of displayedPersonalDetails; track field.label) {
+                <div>
+                    <span class="font-bold text-xl">{{ field.label }} : </span> <span class="text-lg font-semibold">{{ field.value }}</span>
+                </div>
+                }
+            }
+        </div>
+        @if(url) {
+            <div class="col-span-1">
+                <img [src]="url" />
+            </div>
+        }
+        <div class="col-span-3">
+            @if (displayedFamilyDetails.length > 0) {
+                <div class="mb-3 font-semibold tracking-wide relative before:contents-['*'] before:absolute before:left-0 before:-bottom-[6px] before:h-1 before:w-10 before:bg-black after:contents-['*'] after:absolute after:left-0 after:-bottom-[4px] after:h-[1px] after:w-[95%] after:bg-[#333]">
+                    <h3 class="">Family Details</h3>
+                </div>
+                @for (field of displayedFamilyDetails; track field.label) {
+                <div>
+                    <span class="font-bold text-xl">{{ field.label }} : </span> <span class="text-lg font-semibold">{{ field.value }}</span>
+                </div>
+                }
+            }
+        </div>
+        <div class="col-span-2">
+            @if (displayedContactDetails.length > 0) {
+                <div class="mb-3 font-semibold tracking-wide relative before:contents-['*'] before:absolute before:left-0 before:-bottom-[6px] before:h-1 before:w-10 before:bg-black after:contents-['*'] after:absolute after:left-0 after:-bottom-[4px] after:h-[1px] after:w-[95%] after:bg-[#333]">
+                    <h3 class="">Contact Details</h3>
+                </div>
+                @for (field of displayedContactDetails; track field.label) {
+                <div>
+                    <span class="font-bold text-xl">{{ field.label }} : </span> <span class="text-lg font-semibold">{{ field.value }}</span>
+                </div>
+                }
+            }
+        </div>
+    </div> -->
+    <div class="w-full justify-between absolute top-0 left-0 p-8">
+        <div class="flex gap-2">
+            <div class="w-3/4">
+                @if (displayedPersonalDetails.length > 0) {
+                    <div class="mb-3 font-semibold tracking-wide relative before:contents-['*'] before:absolute before:left-0 before:-bottom-[6px] before:h-1 before:w-10 before:bg-black after:contents-['*'] after:absolute after:left-0 after:-bottom-[4px] after:h-[1px] after:w-[95%] after:bg-[#333]">
+                        <h3 class="text-2xl font-bold">Personal Details</h3>
+                    </div>
+                    @for (field of displayedPersonalDetails; track field.label) {
+                    <div>
+                        <span class="font-bold text-lg">{{ field.label }} : </span> <span class="font-semibold">{{ field.value }}</span>
+                    </div>
+                    }
+                }
+            </div>
+            <div class="w-1/4">
+                @if(url) {
+                    <img [src]="url" />
+                }
+            </div>
+        </div>
+        <div class="flex gap-2">
+            <div class="w-1/2">
+                @if (displayedFamilyDetails.length > 0) {
+                    <div class="mb-3 font-semibold tracking-wide relative before:contents-['*'] before:absolute before:left-0 before:-bottom-[6px] before:h-1 before:w-10 before:bg-black after:contents-['*'] after:absolute after:left-0 after:-bottom-[4px] after:h-[1px] after:w-[95%] after:bg-[#333]">
+                        <h3 class="text-2xl font-bold">Family Details</h3>
+                    </div>
+                    @for (field of displayedFamilyDetails; track field.label) {
+                    <div>
+                        <span class="font-bold text-lg">{{ field.label }} : </span> <span class="font-semibold">{{ field.value }}</span>
+                    </div>
+                    }
+                }
+            </div>
+            <div class="w-1/2">
+                @if (displayedContactDetails.length > 0) {
+                    <div class="mb-3 font-semibold tracking-wide relative before:contents-['*'] before:absolute before:left-0 before:-bottom-[6px] before:h-1 before:w-10 before:bg-black after:contents-['*'] after:absolute after:left-0 after:-bottom-[4px] after:h-[1px] after:w-[95%] after:bg-[#333]">
+                        <h3 class="text-2xl font-bold">Contact Details</h3>
+                    </div>
+                    @for (field of displayedContactDetails; track field.label) {
+                    <div>
+                        <span class="font-bold text-lg">{{ field.label }} : </span> <span class="font-semibold">{{ field.value }}</span>
+                    </div>
+                    }
+                }
+            </div>
+        </div>
+    </div>
+</div>
+@if (showAction) {
+<div class="flex py-4 px-3 justify-between gap-3">
+    <button type="button" class="cursor-pointer bg-white text-black border border-black py-2 px-10 hover:text-white hover:bg-black transition-all duration-500 rounded-lg font-semibold" mat-dialog-close>
+        Cancel
+    </button>
+    <div class="flex gap-3 justify-end">
+        <button type="button" (click)="downloadAsImage()" class="cursor-pointer bg-black text-white border border-black py-2 px-10 hover:text-black hover:bg-transparent transition-all duration-500 rounded-lg font-semibold">
+            Download Image
+        </button>
+        <button (click)="downloadAsPdf()" type="button" class="cursor-pointer bg-black text-white border border-black py-2 px-10 hover:text-black hover:bg-transparent transition-all duration-500 rounded-lg font-semibold">
+            Download PDF
+        </button>
+    </div>
+</div>
+}

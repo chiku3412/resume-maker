@@ -1,4 +1,6 @@
-import { AfterViewInit, Component } from '@angular/core';
+import { AfterViewInit, Component, Inject, PLATFORM_ID } from '@angular/core';
+import { isPlatformBrowser } from '@angular/common';
+
 
 @Component({
     selector: 'app-header',
@@ -7,8 +9,12 @@ import { AfterViewInit, Component } from '@angular/core';
     templateUrl: './header.component.html'
 })
 export class HeaderComponent implements AfterViewInit {
+    constructor(@Inject(PLATFORM_ID) private platformId: Object) {}
+    
     ngAfterViewInit(): void {
-        this.setupNavbarToggle();
+        if (isPlatformBrowser(this.platformId)) {
+            this.setupNavbarToggle();
+        }
     }
 
     private setupNavbarToggle(): void {
