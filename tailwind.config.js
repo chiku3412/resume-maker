@@ -4,7 +4,11 @@ export default {
     "./src/**/*.{html,ts,scss}"
   ],
   theme: {
-    extend: {},
+    extend: {
+      fontFamily: {
+        fredericka: ['"Fredericka the Great"', 'serif'],
+      },
+    },
   },
   plugins: [],
 }
