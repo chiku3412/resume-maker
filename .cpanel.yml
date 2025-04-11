@@ -1,6 +1,10 @@
 ---
 deployment:
   tasks:
-    - export DEPLOYPATH=/home/username/public_html/resumemaker
-    - /bin/cp -R * $DEPLOYPATH
-    - /bin/cp -R .htaccess $DEPLOYPATH
+    - echo "Building Angular project..."
+    - npm install
+    - npm run build -- --configuration=production
+    - export DEPLOYPATH=~/public_html/resumemaker
+    - echo "Copying built files to $DEPLOYPATH"
+    - rm -rf $DEPLOYPATH/*
+    - cp -R dist/resume-maker/* $DEPLOYPATH
