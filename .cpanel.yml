@@ -1,5 +1,6 @@
 ---
 deployment:
   tasks:
-    - export DEPLOYPATH=/home/example/public_html/resumemaker
-    - /bin/cp -R images $DEPLOYPATH
+    - export DEPLOYPATH=/home/username/public_html/resumemaker
+    - /bin/cp -R * $DEPLOYPATH
+    - /bin/cp -R .htaccess $DEPLOYPATH
