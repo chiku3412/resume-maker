@@ -1,3 +1,4 @@
+import { CommonModule } from '@angular/common';
 import { Component, ElementRef, Inject, Input, OnInit, Optional, ViewChild } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogModule } from '@angular/material/dialog';
@@ -7,7 +8,7 @@ import jsPDF from 'jspdf';
 @Component({
   selector: 'app-preview-data',
   standalone: true,
-  imports: [MatDialogModule],
+  imports: [MatDialogModule, CommonModule],
   templateUrl: './preview-data.component.html'
 })
 export class PreviewDataComponent implements OnInit {
@@ -102,28 +103,70 @@ export class PreviewDataComponent implements OnInit {
   }
 
   downloadAsPdf() {
-    const element = this.previewSection.nativeElement;
-    html2canvas(element, { scale: 2 }).then(canvas => {
-      const imgData = canvas.toDataURL('image/png');
+    const el = this.previewSection.nativeElement;
+    html2canvas(el, { scale: 2 }).then(canvas => {
       const pdf = new jsPDF('p', 'mm', 'a4');
-      const imgProps = pdf.getImageProperties(imgData);
-      const pdfWidth = pdf.internal.pageSize.getWidth();
-      const pdfHeight = (imgProps.height * pdfWidth) / imgProps.width;
-      pdf.addImage(imgData, 'PNG', 0, 0, pdfWidth, pdfHeight);
+      const [w, h] = [pdf.internal.pageSize.getWidth(), pdf.internal.pageSize.getHeight()];
+      const imgW = w;
+      const imgH = (canvas.height * imgW) / canvas.width;
+      const scale = canvas.width / imgW;
+      const pageHpx = h * scale;
+  
+      const ctx = (document.createElement('canvas').getContext('2d')!);
+      let pos = 0, remain = canvas.height;
+  
+      while (remain > 0.5) {
+        const chunk = Math.min(pageHpx, remain);
+        ctx.canvas.width = canvas.width;
+        ctx.canvas.height = chunk;
+        ctx.fillStyle = '#fff';
+        ctx.fillRect(0, 0, canvas.width, chunk);
+        ctx.drawImage(canvas, 0, pos, canvas.width, chunk, 0, 0, canvas.width, chunk);
+        const img = ctx.canvas.toDataURL('image/png');
+        pdf.addImage(img, 'PNG', 0, 0, imgW, (chunk * imgW) / canvas.width);
+        remain -= chunk;
+        pos += chunk;
+        if (remain > 0.5) pdf.addPage();
+      }
+  
       pdf.save('preview.pdf');
     });
   }
+    
   
   downloadAsImage() {
     const element = this.previewSection.nativeElement;
-    html2canvas(element, { scale: 2 }).then(canvas => {
-      const imgData = canvas.toDataURL('image/png');
+  
+    html2canvas(element, { scale: 2 }).then(originalCanvas => {
+      // A4 size at 96 DPI = 794 x 1123 pixels (portrait)
+      const a4Width = 794;
+      const a4Height = 1123;
+  
+      const a4Canvas = document.createElement('canvas');
+      a4Canvas.width = a4Width;
+      a4Canvas.height = a4Height;
+  
+      const ctx = a4Canvas.getContext('2d')!;
+      ctx.fillStyle = '#ffffff'; // white background
+      ctx.fillRect(0, 0, a4Width, a4Height);
+  
+      // Scale the original canvas to fit within A4
+      const scale = Math.min(a4Width / originalCanvas.width, a4Height / originalCanvas.height);
+      const scaledWidth = originalCanvas.width * scale;
+      const scaledHeight = originalCanvas.height * scale;
+  
+      const x = (a4Width - scaledWidth) / 2;
+      const y = (a4Height - scaledHeight) / 2;
+  
+      ctx.drawImage(originalCanvas, 0, 0, originalCanvas.width, originalCanvas.height, x, y, scaledWidth, scaledHeight);
+  
+      const imgData = a4Canvas.toDataURL('image/png');
       const link = document.createElement('a');
       link.href = imgData;
-      link.download = 'preview.png';
+      link.download = 'preview-a4.png';
       link.click();
     });
-  }
+  }  
 
   ngOnInit(): void {
     this.showAction = this.data?.showAction;
